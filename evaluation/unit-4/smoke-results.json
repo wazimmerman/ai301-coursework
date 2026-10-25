@@ -1,0 +1,140 @@
+{
+  "tool_dir": "/home/wazimmerman/.claude/skills/pr-precheck",
+  "model": "gpt-6.1-sol (Codex CLI; ChatGPT authentication)",
+  "agreement": [
+    3,
+    3
+  ],
+  "results": [
+    {
+      "id": "pkg-01",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Repository checks",
+        "Standards and communication"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The added capacity check precedes the existing unconditional reservation instead of guarding bulk copies after padding consumes capacity; no deviation explains this."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The exact repro records 99999 before and 100000 after with clean branch ASAN; the accepted no-short-rows control parses cleanly, and regression assertions check shape and length."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "unclear",
+          "evidence": "pytest pandas/tests/io/parser -q records 2841 passed and 40 skipped, but the required pre-commit run and outcome are unavailable."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The two changed files and two commits are confined to parser stream reservation and the corresponding regression test, with no unrelated churn or debug residue."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "fail",
+          "evidence": "The description lacks required issue-closing linkage and a code-check outcome, and the diff omits the required latest-whatsnew bug entry."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify short rows before a wide field, the intended capacity repair, and the regression-test evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "standards-wall",
+      "calibration": false
+    },
+    {
+      "id": "pkg-02",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "All three save_* methods export without clearing and clear after writing; the planned regression test and CHANGELOG.md entry are present."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "Before/after repro shows the record surviving a failed save on the branch; the executed regression test verifies successful saves still clear."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "pytest tests/ -q completed with 1462 passed and 12 skipped; no additional mandatory gate is stated."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The single commit contains only the three save-method fixes, the regression test, and the required changelog entry."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description links #4208 and identifies a bug fix, and CHANGELOG.md contains the required entry; no AI policy is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description explain the failed-write trigger and preservation result, with concrete repro and pytest evidence in the bundle."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-03",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Diff quality"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The plan excludes config changes and promises one module test; the diff adds resolve_symlinks, rewrites truncate, and includes no test or deviation notes despite claiming exact implementation."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The symlink repro records empty output before and ~/projects/app-dir after; the physical-path control retains repo-root styling."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence records cargo test directory passing with 34 tests; repo facts state no additional mandatory check."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "The diff and commits include an unrelated truncation refactor and resolve_symlinks configuration addition; truncate also loses leading-slash preservation."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The conventional title and description supply motivation, Closes #7648, and concrete testing results; no AI policy or additional thread requirements are stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the symlink trigger, logical-path fallback, linked issue, and before/after and suite evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    }
+  ]
+}

@@ -1,0 +1,879 @@
+{
+  "tool_dir": "/home/wazimmerman/.claude/skills/pr-precheck",
+  "model": "gpt-6.1-sol (Codex CLI; ChatGPT authentication)",
+  "agreement": [
+    19,
+    20
+  ],
+  "results": [
+    {
+      "id": "pkg-01",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Repository checks",
+        "Standards and communication"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The added guard precedes an existing unconditional reservation for the same pending input; no bulk-copy capacity check after short-row padding or justified deviation is shown."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "Recorded repro results change from 99999 to 100000 with clean branch ASAN; accepted evidence includes the wide-field-only control, and the regression asserts shape and length."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "unclear",
+          "evidence": "pytest pandas/tests/io/parser -q records 2841 passed and 40 skipped, but required pre-commit execution and outcome are not supplied."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The two commits change only tokenizer.c and the targeted parser regression test, without unrelated churn or debug residue."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "fail",
+          "evidence": "The candidate omits the required closing issue linkage and latest-release doc/source/whatsnew entry."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify short rows before a wide field, the intended capacity repair, and a pointer to test evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "standards-wall",
+      "calibration": false
+    },
+    {
+      "id": "pkg-02",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "All three save_* methods export with clear=False and clear after successful writing; the planned regression test and CHANGELOG.md entry are present, with no API or default changes."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The before/after issue repro changes from an empty record to 'IMPORTANT OUTPUT\\n' after failure; the executed save_text regression also checks clearing after success."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence records pytest tests/ -q passing with 1462 passed and 12 skipped; no further mandatory repository gate is stated."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The complete supplied diff and single commit contain only the three save-method fixes, a relevant regression test, and the requested changelog entry."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description links #4208 and answers the change-type ask with 'Bug fix'; CHANGELOG.md is updated, and no AI policy or additional review condition is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description explain the failed-write trigger and preserved recording; the test-evidence section supplies before/after output and the pytest result."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-03",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Diff quality"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The claim 'Implements the posted plan exactly' conflicts with an excluded resolve_symlinks option, an unplanned truncation rewrite, and the missing promised module test; no deviations are recorded."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The symlink repro renders nothing before and ~/projects/app-dir after; the physical-path control retains repo-root styling."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence records cargo test directory passing with 34 tests; no additional mandatory repository gate is stated."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "The diff includes an unrelated truncation rewrite that removes leading-root preservation and a resolve_symlinks configuration addition beyond the bounded fallback fix."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The conventional title and description supply motivation, Closes #7648, and concrete testing results; no additional applicable artifact or AI-policy requirement is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the symlink trigger, logical-path fallback, issue linkage, and before/after and suite evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-04",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Reproduction and controls"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "Description claims the fallback uses 'the same flag set' as successful probes, but the diff supplies only --RAW-CONTROL-CHARS while successful probes supply a second flag."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "fail",
+          "evidence": "After-state evidence only says 'colors work now in paging mode'; it records neither the actual repro command nor a control result, and the unit assertion checks flags rather than paging behavior."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly records that cargo test passes, satisfying the stated test requirement."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "Both commits and all hunks directly support the Windows fallback fix, regression test, and required CHANGELOG entry."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The diff includes a behavior test and CHANGELOG entry referencing #3833; captured policy states no PR template or AI requirements."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify an unparseable Windows less version banner, the raw-control flag change, and the unit test."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-05",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "The diff implements the planned four-part merge identity, replacement warning, and both regression tests; the description accurately states that scope."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The issue script shows only up before and both bindings after; keybindings list confirms ctrl-r, and the same-key test asserts one binding and one warning."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence records cargo test -p nu-protocol passing with 312 tests and reports fmt and clippy clean."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "Both commits and every supplied hunk concern the planned merge identity, warning, or regression tests, with no unrelated debris."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description answers both template asks, links #18848, and addresses the thread's uniqueness and config-defined binding concerns; no AI policy is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the same-name different-key trigger and resulting behavior, with concrete before/after and repository test evidence."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-06",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Diff quality",
+        "Standards and communication"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The diff adds theme/event renaming and MenuFollowsWindowTheme outside the accepted scope, with no deviation notes, contradicting 'No functional changes outside the system menu fix.'"
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The accepted dark-theme failure is paired with branch alt+space observations showing a dark menu and a light menu after switching themes."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence records Terminal.Unit.Tests passing locally with 0 failures."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "The diff includes an unrelated theme/event naming refactor and an experimental settings addition alongside the bounded menu fix."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "unclear",
+          "evidence": "The contribution policy requires a signed CLA, but the bundle provides no evidence of CLA status."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the system-menu change, link #20507, and point to alt+space dark/light validation and unit-test results."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-07",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Reproduction and controls",
+        "Review navigation"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The plan promises the two-file repro and project test suite; only single-file verification and package tests are reported, without deviation notes."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "fail",
+          "evidence": "The recorded run uses ./onefile/ and the added test groups only a.go edits; neither exercises the cross-file failure."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly reports go test ./pkg/goanalysis/... passes; captured repo facts name no additional mandatory command or gate."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "Both commits and all shown hunks address suggested-fix application or its tests, with no unrelated churn or debug residue."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description supplies the required brief explanation; no applicable linter-update restriction, AI policy, or additional thread requirement is captured."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "fail",
+          "evidence": "The title and description identify the cross-file trigger and changed behavior but include no validation result or pointer to evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-08",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "All three planned files deliver the pre-prompt tracked-change guard, English error text, and integration test; the description accurately states the bounded behavior."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The untracked-only repro changes from a silent failed prompt to a toast with no prompt and the file retained; the tracked-change control still creates a stash."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence records stash_untracked_only_errors passing, go test ./... passing, and go generate ./... producing no cheatsheet diff."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "Every supplied hunk and both commits directly support the stash guard, translated error message, or regression test, with no unrelated churn."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description links #5883 and substantively answers all captured template asks; no additional AI policy or explicit maintainer condition is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the untracked-only trigger, replacement error toast, avoided prompt, and integration test coverage."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-09",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Diff quality",
+        "Standards and communication"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "Despite claiming 'exactly as planned', the diff adds excluded --time-format and other message changes, omits promised unit tests, and supplies no deviation notes."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "Accepted baseline evidence includes the invalid date, typo, and valid-date control; branch reruns show distinct out-of-range and format wording for the two failure triggers."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly records cargo test passing with 612 tests."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "The diff includes an unrelated --time-format flag, help-text rewrites, and global error punctuation trimming in src/error.rs."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "fail",
+          "evidence": "The contribution guide requires behavior-change tests and a CHANGELOG.md entry, but neither appears in the supplied diff despite the description claiming the entry."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify --changed- parsing, the invalid-day versus typo distinction, and #2053; test evidence shows both resulting messages."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-10",
+      "verdict": "reject",
+      "failed_checks": [
+        "Reproduction and controls",
+        "Repository checks"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "The two planned files set both sync agents' autoSelectFamilyAttemptTimeout to 2000 and assert both options, without disabling Happy Eyeballs or adding unrelated scope."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "fail",
+          "evidence": "A full day of Koofr syncs does not rerun the accepted ~350 ms delayed-connect trigger before and after; the added assertions only check agent options."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "fail",
+          "evidence": "Test evidence says 'no further testing seemed necessary' and records no yarn test run or outcome, despite the repository requirement and planned lib tests."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The single commit contains only the two agent options, a related explanatory comment, and focused unit assertions."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description includes 'Fixes #16215'; changes are minimal, and the captured repository has no PR template, AI policy, or additional required supporting artifacts."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description explain the slow TCP-connect trigger, the increase from 250 to 2000 ms, and the reported day of Koofr sync observations."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-11",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "The parser delegates trailing-space trimming to an odd/even backslash helper, with regression tests in the sole planned file and no expanded whitespace semantics."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The exact escaped-space trigger errors before and searches normally after; foo-space is ignored, and assertions cover the nonmatching foo and double-backslash control."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly records cargo test -p ignore passing 214 tests."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "Commit 6b93e11 contains only the parser trimming change, supporting helper, explanatory comments, and focused regression test."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description links #3477 and states AI assistance, human review and understanding of every line, and wording in the author's own words; behavior tests are included."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description explain escaped-space trimming and the dangling-backslash result, while test evidence identifies the reproduction and passing suite."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-12",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Diff quality",
+        "Standards and communication"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The description claims 'CHANGELOG entry included,' but the complete diff changes only src/controller.rs and tests/integration_tests.rs."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The accepted huge-offset repro aborts before with exit 101; the branch prints both lines and exits 0, reports the :-4 control unchanged, and adds exact-output regression assertions."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly records that cargo test passes and that the integration suite includes the new regression test."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "src/controller.rs retains a commented debug print, a discarded implementation 'keeping for reference,' an unused probe function, and an unrelated ring-buffer TODO."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "fail",
+          "evidence": "The captured contribution guide requires a CHANGELOG.md entry, but the complete diff contains none."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the huge :-N abort, explain the bounded allocation fix, link #3845, and point to repro, control, and regression evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unreviewable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-13",
+      "verdict": "accept",
+      "failed_checks": [
+        "Review navigation"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "Both planned files implement escaping and a regression test; the plan and description explicitly exclude percent-sign environment expansion."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "Windows repro records truncated URL/exit 1 before and full URL/exit 0 after; the no-ampersand control is unchanged and the test asserts the escaped argument."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "TEST_FILE=test/functional/lua/ui_spec.lua make functionaltest explicitly passes, including the new case."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The single commit changes only Windows argument escaping, relevant explanatory comments, and its focused regression test."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description answers Problem and Solution and links #41337; the conventional fix(ui) commit includes an executed behavior-change test, and no AI policy is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "fail",
+          "evidence": "The title and description identify the trigger and change but contain no validation outcome or pointer to the supplied test evidence."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-14",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Reproduction and controls",
+        "Repository checks",
+        "Diff quality"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The plan promises JSON POST regression coverage and excludes casing, but the only added test is test_header_casing_preserved, with no recorded deviation."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "fail",
+          "evidence": "Candidate evidence shows only a GET preserving header casing, with no post-fix JSON POST observation for the single-header trigger or two-header control."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "unclear",
+          "evidence": "'All tests pass' supplies neither a named suite command nor a concrete run outcome, so the prescribed suite run cannot be verified."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "The diff adds test_header_casing_preserved, an unrelated casing test outside the bounded JSON-default fix."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description links #1834 and discusses testing, and the diff includes a test; no template, AI policy, or additional maintainer direction is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify exactly one custom header as the trigger, restored JSON Content-Type as the result, and added tests as the claimed evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "not-tested",
+      "calibration": false
+    },
+    {
+      "id": "pkg-15",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Repository checks",
+        "Diff quality"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The plan promises one unit test on the limit-raise helper; the complete diff contains no test, and no deviation note explains the omission."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The limit-64 baseline dies on tab 4; the branch creates 6 tabs, and the forced-hard-limit-64 control logs accept failures while the server survives."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "fail",
+          "evidence": "Only cargo test -p zellij-server is recorded as passing; the repository-prescribed cargo test run is absent without an explanation."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "The diff retains a DEBUG eprintln, commented debugging experiments, an unused count_open_fds helper, and unrelated formatting churn."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description references Fixes #5474 and addresses both issue asks; no PR template or AI policy imposes additional communication requirements."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify fd exhaustion, startup limit raising, accept-error recovery with 100 ms backoff, and pointers to reproduction and test evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unreviewable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-16",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The plan promises unchanged start-path tolerance, but shared DoLoadImages now returns an error on total failure without a start-path safeguard in the diff."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The invalid-tarball baseline exits 0 silently; the branch prints an error and exits 1, while alpine.tar exits 0 and appears in guest images."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly records go test ./pkg/minikube/machine/... ./cmd/... as passing; no additional test gate is stated."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The two commits and three changed files contain focused error aggregation, command error reporting, and regression coverage without unrelated churn."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The draft provides a descriptive title, fixes #23471, before/after examples, and discussion of the thread's multi-node concern; no AI policy is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the corrupt-tarball trigger, intended visible error and non-zero exit, and before/after evidence."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-17",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "The description claims implementation 'in full' and completed documentation, but the diff omits the promised docs page and supplies no justified deviation."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The accepted silent-skip baseline and dev warning rerun demonstrate the changed behavior; tests assert raw-target identity and frozen exemption, and a production run reports no warning."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "'pnpm test reactivity' passes with 511 tests; captured repository policy specifies no additional mandatory command."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The reactive.ts warning and reactive.spec.ts regressions directly address the issue without unrelated changes or residue."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The conventional-commit title, #14893 linkage, problem description, and fix tests satisfy the captured contribution guidelines; no template or AI policy is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the sealed-object trigger and dev warning, while test evidence supplies the observed warning and named suite result."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "silent-drift",
+      "calibration": false
+    },
+    {
+      "id": "pkg-18",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diff quality"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "The stdout IsTerminal gate and one regression test match the bounded plan; the description explicitly preserves the config use-colors exclusion."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The piped-help repro records 214 escape matches before and 0 after; terminal help remains colored, and the test asserts no escape character in piped stdout."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence records cargo test passing and fmt and clippy clean, covering the captured repository checks."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "fail",
+          "evidence": "src/command.rs retains the commented debug statement: // eprintln!(\"help colors: tty={}\", std::io::stdout().is_terminal());"
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The description answers Description and User-facing changes, links #18850, and satisfies the captured policy without inventing AI or CI claims."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify piped --help as the trigger, the stdout terminal gate as the change, and plain text as the result, supported by before/after evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unreviewable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-19",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "pass",
+          "evidence": "The two planned files remove the single-quote break-site indentation reset and add the issue-input round-trip regression; the description matches."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "Before output reproduces the dedented quote; branch comparison reports IDENTICAL, and both planned controls are unchanged."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly records go test ./... passing with 4108 tests."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The single commit contains only the bounded emitter fix, related explanation, and round-trip regression assertion."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "pass",
+          "evidence": "The required fix test is present and executed, the description links #2819, and no additional template or AI policy is stated."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "The title and description identify the trailing-blank-line trigger, preserved indentation, and issue-input regression test."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-20",
+      "verdict": "reject",
+      "failed_checks": [
+        "Plan fidelity",
+        "Standards and communication"
+      ],
+      "checks": [
+        {
+          "name": "Plan fidelity",
+          "grade": "fail",
+          "evidence": "Description claims a second single-theme scheme-flip case; the added second test instead changes .fullscreen and asserts null."
+        },
+        {
+          "name": "Reproduction and controls",
+          "grade": "pass",
+          "evidence": "The isolated dark-window query returns ?997;2n before and ?997;1n after; the conditional-pair control remains ?997;1n."
+        },
+        {
+          "name": "Repository checks",
+          "grade": "pass",
+          "evidence": "Test evidence explicitly records zig build test passing with the config suite included."
+        },
+        {
+          "name": "Diff quality",
+          "grade": "pass",
+          "evidence": "The single commit changes only Config.zig's relevance guard and directly related regression/control tests."
+        },
+        {
+          "name": "Standards and communication",
+          "grade": "unclear",
+          "evidence": "Issue linkage is present, but AI usage and required policy compliance are unverified; first-time contributor/vouch applicability is unspecified."
+        },
+        {
+          "name": "Review navigation",
+          "grade": "pass",
+          "evidence": "Title and description identify non-conditional themes, the corrected scheme report, and repro/build evidence."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "standards-wall",
+      "calibration": false
+    }
+  ]
+}

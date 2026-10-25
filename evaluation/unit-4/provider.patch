@@ -1,0 +1,77 @@
+--- upstream/run_eval.py
++++ codex/run_eval.py
+@@ -14,6 +14,9 @@
+ harness commands from earlier weeks keep working against an installed
+ copy.
+ 
++Adapted provider: Codex CLI with existing ChatGPT authentication.
++The untouched upstream harness is retained separately; this is not a Sonnet run.
++Original provider description follows for provenance:
+ Requires the `claude` CLI (Claude Code). Each package is graded by one
+ non-interactive `claude -p` call carrying the tool's four files and
+ the bundle text; the model's last fenced JSON block is the verdict.
+@@ -27,6 +30,8 @@
+ import hashlib
+ import concurrent.futures
+ import json
++import os
++import tempfile
+ import re
+ import subprocess
+ import sys
+@@ -34,7 +39,8 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-MODEL = "sonnet"
++MODEL = "gpt-6.1-sol (Codex CLI; ChatGPT authentication)"
++ADAPTER = "Explicit provider substitution; official prompts, packages, scoring, and fingerprints preserved"
+ JSON_BLOCK_RE = re.compile(r"```json\s*(\{.*?\})\s*```", re.DOTALL)
+ 
+ # The contract's fixed layout: file label -> path inside the tool dir.
+@@ -85,17 +91,32 @@
+         skill=tool["skill"], rubric=tool["rubric"],
+         evidence=tool["evidence"], procedure=tool["procedure"],
+         item_id=item_id, bundle=bundle_path.read_text(encoding="utf-8"))
+-    cmd = ["claude", "-p", "--model", MODEL]
++    # No API-key fallback: use the existing ChatGPT-authenticated Codex CLI.
++    # Disable tool access; each frozen package is the whole evidence world.
++    cmd = ["/home/wazimmerman/.local/share/mise/installs/codex/0.160.0/bin/codex", "exec", "--ignore-user-config", "--ephemeral",
++           "--model", "gpt-6.1-sol", "--sandbox", "read-only",
++           "--skip-git-repo-check", "--disable", "shell_tool",
++           "--disable", "multi_agent", "--disable", "apps",
++           "--disable", "plugins", "--disable", "browser_use",
++           "--disable", "computer_use", "--disable", "image_generation",
++           "--disable", "tool_search", "--config", 'web_search="disabled"',
++           "--config", 'model_reasoning_effort="medium"', "-"]
++    child_env = os.environ.copy()
++    child_env["RUST_LOG"] = "off"
++    for key in ("OPENAI_API_KEY", "CODEX_API_KEY", "ANTHROPIC_API_KEY"):
++        child_env.pop(key, None)
+     last_err = "no attempt"
+     for _ in range(2):                       # one retry on bad output
+         try:
+-            proc = subprocess.run(cmd, input=prompt, capture_output=True,
+-                                  text=True, timeout=timeout)
++            with tempfile.TemporaryDirectory(prefix="pr-precheck-codex-") as isolated:
++                proc = subprocess.run(cmd, input=prompt, capture_output=True,
++                                      text=True, timeout=timeout,
++                                      cwd=isolated, env=child_env)
+         except subprocess.TimeoutExpired:
+             last_err = f"timed out after {timeout}s"
+             continue
+         if proc.returncode != 0:
+-            last_err = f"claude exited {proc.returncode}: " \
++            last_err = f"codex exited {proc.returncode}: " \
+                        f"{proc.stderr.strip()[:200]}"
+             continue
+         blocks = JSON_BLOCK_RE.findall(proc.stdout)
+@@ -274,6 +295,8 @@
+     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+     head = [f"# eval run written by run_eval.py at {stamp}",
+             f"# model: {MODEL} (pinned)",
++            f"# adapter: {ADAPTER}",
++            "# backend: codex-cli 0.160.0; ChatGPT auth; API-key env vars removed; no official Sonnet equivalence claimed",
+             f"# graded: {graded}",
+             f"# packages: {n_items} scored"]
+     for p in files:
