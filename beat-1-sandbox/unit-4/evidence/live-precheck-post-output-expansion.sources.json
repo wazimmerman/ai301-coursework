@@ -1,0 +1,69 @@
+{
+  "captured_at": "2026-10-25T23:41:21.665551+00:00",
+  "commands": [
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "main"
+      ],
+      "stdout": "f89c06fc3ff292df2a04a39ac51319d32a76b779\n",
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "stdout": "639f49027473664f14bbf70512968dbc5b1f0629\n",
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "branch",
+        "--show-current"
+      ],
+      "stdout": "fix/69-json-array-fallback\n",
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "remote",
+        "-v"
+      ],
+      "stdout": "origin\thttps://github.com/wazimmerman/pathreview-ai301-fa26-s1.git (fetch)\norigin\thttps://github.com/wazimmerman/pathreview-ai301-fa26-s1.git (push)\nupstream\thttps://github.com/codepath/pathreview-ai301-fa26-s1.git (fetch)\nupstream\thttps://github.com/codepath/pathreview-ai301-fa26-s1.git (push)\n",
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "status",
+        "--short"
+      ],
+      "stdout": "",
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "log",
+        "main..HEAD",
+        "--oneline"
+      ],
+      "stdout": "639f490 fix(rag): fall back for non-object JSON review output\n",
+      "exit": 0
+    },
+    {
+      "command": [
+        "git",
+        "diff",
+        "main...HEAD"
+      ],
+      "stdout": "diff --git a/rag/generator/output_parser.py b/rag/generator/output_parser.py\nindex b57c2fe..ffdf990 100644\n--- a/rag/generator/output_parser.py\n+++ b/rag/generator/output_parser.py\n@@ -38,14 +38,16 @@ def parse_review_output(raw: str) -> list[FeedbackSection]:\n         json_str = json_match.group(1)\n         try:\n             data = json.loads(json_str)\n-            return _parse_json_output(data)\n+            if isinstance(data, dict):\n+                return _parse_json_output(data)\n         except json.JSONDecodeError:\n             logger.warning(\"json_parsing_failed_in_fence\", json_snippet=json_str[:100])\n \n     # Try raw JSON\n     try:\n         data = json.loads(raw)\n-        return _parse_json_output(data)\n+        if isinstance(data, dict):\n+            return _parse_json_output(data)\n     except json.JSONDecodeError:\n         logger.warning(\"raw_json_parsing_failed\")\n \ndiff --git a/tests/unit/test_output_parser.py b/tests/unit/test_output_parser.py\nindex 94861ea..c83f1da 100644\n--- a/tests/unit/test_output_parser.py\n+++ b/tests/unit/test_output_parser.py\n@@ -138,18 +138,46 @@ class TestOutputParser:\n         # Should return empty list or handle gracefully\n         assert isinstance(result, list)\n \n-    @pytest.mark.xfail(\n-        strict=True,\n-        reason=\"issue #69 (manifest H-02): output parser calls .items() on a JSON array fallback\",\n-    )\n     def test_json_array_fallback(self):\n         \"\"\"Test handling of JSON array (not dict).\"\"\"\n         raw_output = json.dumps([\"First feedback item\", \"Second feedback item\"])\n \n         result = parse_review_output(raw_output)\n \n-        # May fall back to plaintext or handle specially\n-        assert isinstance(result, list)\n+        assert result == [FeedbackSection(\"general_feedback\", raw_output, 0.7, [])]\n+\n+    def test_json_array_in_fence_fallback(self):\n+        \"\"\"Keep the complete fenced array as plaintext feedback.\"\"\"\n+        raw_output = '```json\\n[\"First feedback item\", \"Second feedback item\"]\\n```'\n+\n+        result = parse_review_output(raw_output)\n+\n+        assert result == [FeedbackSection(\"general_feedback\", raw_output, 0.7, [])]\n+\n+    @pytest.mark.parametrize(\"value\", [[], \"just text\", 42, None, True])\n+    @pytest.mark.parametrize(\"fenced\", [False, True])\n+    def test_non_object_json_preserves_raw_feedback(self, value, fenced):\n+        \"\"\"Valid JSON without section names uses the exact original text.\"\"\"\n+        raw_output = json.dumps(value)\n+        if fenced:\n+            raw_output = f\"```json\\n{raw_output}\\n```\"\n+\n+        result = parse_review_output(raw_output)\n+\n+        assert result == [FeedbackSection(\"general_feedback\", raw_output, 0.7, [])]\n+\n+    @pytest.mark.parametrize(\"value\", [{\"summary\": \"Works\"}, {}])\n+    @pytest.mark.parametrize(\"fenced\", [False, True])\n+    def test_json_objects_keep_structured_behavior(self, value, fenced):\n+        \"\"\"The fallback guard leaves populated and empty objects unchanged.\"\"\"\n+        raw_output = json.dumps(value)\n+        if fenced:\n+            raw_output = f\"```json\\n{raw_output}\\n```\"\n+\n+        result = parse_review_output(raw_output)\n+\n+        expected = [FeedbackSection(\"summary\", \"Works\", 0.85, [])] if value else []\n+        assert result == expected\n \n     def test_very_long_plain_text(self):\n         \"\"\"Test parsing very long plain text.\"\"\"\n",
+      "exit": 0
+    }
+  ]
+}
