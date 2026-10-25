@@ -1,0 +1,2 @@
+2026-10-25 17:27:55 [info     ] plaintext_output_parsed        content_length=47
+[FeedbackSection(section_name='general_feedback', content='["First feedback item", "Second feedback item"]', confidence=0.7, suggestions=[])]

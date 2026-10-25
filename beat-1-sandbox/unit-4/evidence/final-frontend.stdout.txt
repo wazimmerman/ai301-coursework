@@ -1,0 +1,15 @@
+
+> pathreview-frontend@0.1.0 test
+> vitest --run
+
+
+ RUN  v1.6.1 /home/wazimmerman/Documents/Codex/2026-10-25/task-2/pathreview-unit4/frontend
+
+ ✓ src/components/__tests__/ReviewSection.test.tsx  (10 tests) 103ms
+ ✓ src/components/__tests__/ProfileForm.test.tsx  (8 tests) 870ms
+
+ Test Files  2 passed (2)
+      Tests  18 passed (18)
+   Start at  17:27:56
+   Duration  1.23s (transform 42ms, setup 100ms, collect 92ms, tests 973ms, environment 271ms, prepare 61ms)
+

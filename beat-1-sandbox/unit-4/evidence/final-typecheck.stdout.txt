@@ -1,0 +1,2 @@
+.venv/bin/mypy api/ core/ ingestion/ rag/ agent/ safety/
+Success: no issues found in 76 source files
