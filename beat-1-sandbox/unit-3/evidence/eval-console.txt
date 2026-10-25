@@ -1,0 +1,48 @@
+grading 20 package(s) with rubric.md + evidence-guide.md + procedure.md, model gpt-6.1-sol, 4 worker(s)...
+  pkg-02: accept
+  pkg-04: reject
+  pkg-01: reject
+  pkg-03: reject
+  pkg-05: accept
+  pkg-06: reject
+  pkg-07: reject
+  pkg-08: accept
+  pkg-09: accept
+  pkg-10: reject
+  pkg-12: reject
+  pkg-13: accept
+  pkg-11: reject
+  pkg-14: reject
+  pkg-15: reject
+  pkg-16: reject
+  pkg-17: reject
+  pkg-20: reject
+  pkg-18: reject
+  pkg-19: reject
+
+item    category           gold    verdict  agree  note
+pkg-01  wrong-cause        reject  reject   yes    
+pkg-02  clear-accept       accept  accept   yes    
+pkg-03  clear-accept       accept  reject   NO     failed: Claims and unknowns are honest
+pkg-04  thread-convention  reject  reject   yes    
+pkg-05  clear-accept       accept  accept   yes    
+pkg-06  scope-creep        reject  reject   yes    
+pkg-07  wrong-cause        reject  reject   yes    
+pkg-08  clear-accept       accept  accept   yes    
+pkg-09  clear-accept       accept  accept   yes    
+pkg-10  unbuildable        reject  reject   yes    
+pkg-11  wrong-cause        reject  reject   yes    
+pkg-12  scope-creep        reject  reject   yes    
+pkg-13  clear-accept       accept  accept   yes    
+pkg-14  clear-accept       accept  reject   NO     failed: Diagnosis follows reproduction, Claims and unknowns are honest
+pkg-15  scope-creep        reject  reject   yes    
+pkg-16  wrong-cause        reject  reject   yes    
+pkg-17  unbuildable        reject  reject   yes    
+pkg-18  unbuildable        reject  reject   yes    
+pkg-19  scope-creep        reject  reject   yes    
+pkg-20  thread-convention  reject  reject   yes    
+
+categories: clear-accept 5/7  scope-creep 4/4  thread-convention 2/2  unbuildable 3/3  wrong-cause 4/4
+agreement: 18/20 scored items  (bar: 18/20: PASS)
+run written to eval-run-initial.txt
+full results written to results-initial.json

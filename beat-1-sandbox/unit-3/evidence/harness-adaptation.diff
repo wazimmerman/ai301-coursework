@@ -1,0 +1,73 @@
+--- run_eval.py (official, untouched)
++++ run_eval_codex.py (disclosed provider adapter)
+@@ -1,4 +1,8 @@
+ #!/usr/bin/env python3
++# TRANSPARENT PROVIDER ADAPTATION: Codex CLI gpt-6.1-sol using existing
++# ChatGPT login. This is not an official Sonnet evaluation. The original
++# prompt, package loading, scoring, gold labels and fingerprinting remain.
++# Original upstream docstring below describes the unmodified harness.
+ """Eval harness: grade every plan-package bundle with the plan-check
+ skill and a chosen rubric, evidence guide, and procedure, then score
+ agreement against the gold labels.
+@@ -23,6 +27,7 @@
+ """
+ 
+ import argparse
++import os
+ import hashlib
+ import concurrent.futures
+ import json
+@@ -33,7 +38,9 @@
+ from pathlib import Path
+ 
+ HERE = Path(__file__).resolve().parent
+-MODEL = "sonnet"
++OFFICIAL_SHA256 = "239027ead48679a0a8969049c4c43d2fa60e3d47b52c7e77cad1429e780fc8d9"
++MODEL = "gpt-6.1-sol"
++BACKEND = "Codex CLI 0.160.0, existing ChatGPT authentication"
+ JSON_BLOCK_RE = re.compile(r"```json\s*(\{.*?\})\s*```", re.DOTALL)
+ 
+ PROMPT_TEMPLATE = """\
+@@ -75,17 +82,23 @@
+     prompt = PROMPT_TEMPLATE.format(
+         skill=skill, rubric=rubric, evidence=evidence, procedure=procedure,
+         item_id=item_id, bundle=bundle_path.read_text(encoding="utf-8"))
+-    cmd = ["claude", "-p", "--model", MODEL]
++    cmd = ["/home/wazimmerman/.local/share/mise/installs/codex/0.160.0/bin/codex", "exec", "--ignore-user-config", "--ephemeral",
++           "--skip-git-repo-check", "--sandbox", "read-only", "--model", MODEL,
++           "-c", 'model_reasoning_effort="medium"', "-"]
++    codex_env = os.environ.copy()
++    codex_env.pop("OPENAI_API_KEY", None)
++    codex_env.pop("CODEX_API_KEY", None)
++    codex_env["RUST_LOG"] = "error"
+     last_err = "no attempt"
+     for _ in range(2):                       # one retry on bad output
+         try:
+             proc = subprocess.run(cmd, input=prompt, capture_output=True,
+-                                  text=True, timeout=timeout)
++                                  text=True, timeout=timeout, env=codex_env)
+         except subprocess.TimeoutExpired:
+             last_err = f"timed out after {timeout}s"
+             continue
+         if proc.returncode != 0:
+-            last_err = f"claude exited {proc.returncode}: " \
++            last_err = f"codex exited {proc.returncode}: " \
+                        f"{proc.stderr.strip()[:200]}"
+             continue
+         blocks = JSON_BLOCK_RE.findall(proc.stdout)
+@@ -167,8 +180,13 @@
+     provenance header the student did not type: what was graded, on which
+     model, and a fingerprint of each file that went into the run."""
+     stamp = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+-    head = [f"# eval run written by run_eval.py at {stamp}",
+-            f"# model: {MODEL} (pinned)",
++    head = [f"# Codex-adapted eval run written by run_eval_codex.py at {stamp}",
++            "# NOT the official Sonnet run; course equivalence unconfirmed",
++            f"# model: {MODEL} (pinned); reasoning effort: medium",
++            f"# backend: {BACKEND}",
++            "# adapter: provider invocation and honest provenance only; prompts/packages/gold/scoring unchanged",
++            f"# official harness sha256: {OFFICIAL_SHA256}",
++            f"# adapter harness sha256: {hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}",
+             f"# graded: {graded}",
+             f"# packages: {n_items} scored"]
+     for p in files:

@@ -1,1 +1,3 @@
-Unit 3 uploads your installed `plan-check` folder here (the current files from `~/.claude/skills/plan-check/`).
+This folder is the entire current installed `~/.claude/skills/plan-check/` skill, including references and the carried Unit 2 voice guide. The official starter's `SKILL.md` is unchanged. Authored files are `rubric.md`, `procedure.md`, `references/evidence-guide.md`, and the filled `Repo:` line in `scope.md`.
+
+OpenAI Codex assisted the authored components and executed live grading with GPT-6.1 Sol. Evaluation uses a disclosed Codex provider adapter because the official harness pins Sonnet. The measured full result is 18/20 with a match in every category; it is not an official Sonnet result, and course equivalence is unconfirmed. See `../../beat-1-sandbox/unit-3/evidence/PROVENANCE.md`, the generated run, full per-check JSON, preserved original harness, and adaptation diff for exact evidence.

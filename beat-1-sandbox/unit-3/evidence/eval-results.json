@@ -1,0 +1,1004 @@
+{
+  "rubric": "/home/wazimmerman/.claude/skills/plan-check/rubric.md",
+  "evidence": "/home/wazimmerman/.claude/skills/plan-check/references/evidence-guide.md",
+  "procedure": "/home/wazimmerman/.claude/skills/plan-check/procedure.md",
+  "model": "gpt-6.1-sol",
+  "agreement": [
+    18,
+    20
+  ],
+  "results": [
+    {
+      "id": "pkg-01",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Change reaches the cause",
+        "Observable regression proof",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "fail",
+          "evidence": "Repro step 4 says argparse rejects the positionals before HTTPie's item parser receives them; step 2 shows the same items parse without -v."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "fail",
+          "evidence": "The plan changes only request-item tokenization, which repro step 4 establishes is never reached on the failing run."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope is limited to separator matching in requestitems.py and supporting tokenizer tests, with argparse, flag handling, and docs excluded."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan names requestitems.py, its separator regex, the proposed matching change, and tokenizer tests in tests/test_cli.py."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "unclear",
+          "evidence": "The Python 3.11 CLI rerun requires header1: xyz and exit 0, but no CLI checks preserve the successful no-flag and Python 3.13 controls."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "The drafts categorically blame the tokenizer and dismiss the version difference despite the accepted argparse traceback and successful controls."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment faithfully summarizes its own plan and verification; the supplied thread and repo facts impose no conflicting prerequisite or AI-use policy."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-02",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "The plan's background-fill underflow diagnosis accounts for the width-1 panic and both successful controls: width 2 and no highlighted background."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "The proposed saturating_sub directly clamps the reported cursor_max - cursor underflow, with the sibling advance also addressed."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "The plan limits work to preventing the print_line abort and adding regression coverage, explicitly excluding tiny-width wrapping redesign."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan identifies src/printer.rs subtraction sites at lines 934 and 795 and specifies saturating clamps plus an audit of the other two subtraction sites."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "The test plan replays the exact width-1 repro expecting output and exit 0 instead of panic and exit 101, preserves both controls, and adds an integration test."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "The plan acknowledges imperfect width-1 visuals and possible additional arithmetic risks, with an explicit audit and reporting path rather than claiming completed results."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment conveys the package's diagnosis, two-site clamp, and width-1 regression test; the bundle states no thread prerequisites or AI policy."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-03",
+      "verdict": "reject",
+      "failed_checks": [
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "Repro: gzip rejects the leading-dash filename as options while the normal-name control matches; the plan identifies filename placement in option position."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "Plan: insert -- before the file path in spawned decompression commands, directly addressing the reproduced gzip option-parsing failure."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Plan limits the work to argument separation and supporting tests, excluding shell quoting, tool selection, and matching logic."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "Plan names crates/cli/src/decompress.rs and specifies inserting -- before the file path in the command builder, with tool compatibility checks."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "Test plan repeats rg -z sometext, requires a match from -10.txt.gz and exit 0, preserves the control match, and adds a compression integration fixture."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "Plan asserts all six tools accept -- despite reporting verification of only gzip, xz, and zstd; any unsupported remaining tool would merely be noted as an open question."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "Comment summarizes its own diagnosis, fix, and test; acknowledges #3224 and #3314 with a conditional collaboration path; and states human authorship and review consistent with repo policy."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-04",
+      "verdict": "reject",
+      "failed_checks": [
+        "Change reaches the cause",
+        "Observable regression proof",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "The Windows console-input diagnosis accounts for unresponsive less, buffered jkq appearing in fzf, and the working > /dev/tty control."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "fail",
+          "evidence": "The plan explicitly excludes input-handling changes and documents a workaround, leaving the reproduced failure without redirection unchanged."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "The man page note, Windows README examples, and FAQ entry all document the same workaround."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The approach identifies the execute section, README execute examples, and FAQ entry, with concrete content to add."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "fail",
+          "evidence": "The test checks only the documented redirection form, which already passes in the accepted repro; it never verifies the original failing command."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "The comment promises an unverified completion date: 'I can have the docs PR up this week.'"
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment supplies its own diagnosis, documentation scope, and successful redirection control; no supplied contribution policy or maintainer prerequisite forbids this proposal."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "thread-convention",
+      "calibration": false
+    },
+    {
+      "id": "pkg-05",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "Repro steps 4\u20135 show no request while A remains cached, followed by A and B appearing after cache deletion."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "The plan caps response freshness in get_notice_response_from_cache() using NOTICES_DECORATOR_DISPLAY_INTERVAL."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope is cache freshness plus tests; display cadence, channel protocol, and cache storage format are explicitly excluded."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan names cache.py and test_cache.py and specifies calculating cache age from its timestamp and treating over-age responses as stale."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "With the cache timestamp backdated 25 hours, repro step 4 must fetch, print A and B, and log a second request; the un-backdated control must use cache."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "The causal claim matches the accepted reproduction, and the comment makes the PR follow-up conditional on local tests passing."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment conveys the diagnosis, bounded TTL change, and tests, follows both maintainer directions, and contradicts no stated contribution policy."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-06",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Change reaches the cause",
+        "One bounded change",
+        "Executable approach",
+        "Observable regression proof",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "fail",
+          "evidence": "The comment claims it 'traced' the failure to a preload structure mismatch, while the accepted repro establishes only a swallowed containerd export error and a successful pulled-image control."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "fail",
+          "evidence": "Export-error propagation addresses the demonstrated failure, but the bundled containerd upgrade and cross-runtime image abstraction change behavior without an evidenced or concretely testable causal link."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "fail",
+          "evidence": "The package combines preload regeneration, a runtime upgrade across drivers, and unification of save/load/ls across docker, containerd, and cri-o."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "unclear",
+          "evidence": "The plan identifies preload generation as the starting point but provides no core mechanism or dependency ordering for the proposed unified image-operations abstraction."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "unclear",
+          "evidence": "The test repeats repro steps 2 and 3 and expects a POSIX tar, but does not preserve the accepted nginx:alpine pulled-image control while changing shared image paths."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "The comment asserts a traced structure mismatch and promises to remove the whole class, although the supplied evidence does not verify that mechanism or breadth."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment conveys the package's diagnosis, enumerated changes, and runtime CI verification; supplied thread signals and contribution policy impose no conflicting prerequisite or AI restriction."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-07",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Change reaches the cause",
+        "Observable regression proof",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "fail",
+          "evidence": "Plan claims FES is absent from the bundle, but repro step 3 shows instance-method friendly errors working in the same build and step 4 confirms p5.disableFriendlyErrors is false."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "fail",
+          "evidence": "Keeping the FES module in the bundle targets asserted module absence, contradicted by the working instance-method control, and does not address the static call boundary."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope is limited to build configuration and a supporting bundle-content CI assertion, explicitly excluding Vector and FES code changes."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "Plan names rollup.config.mjs and package.json and specifies retaining FES registration through module side-effect configuration plus a bundle-content assertion."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "unclear",
+          "evidence": "Test replays the issue snippet against a local build and expects a friendly error instead of TypeError, but does not explicitly preserve the instance-method control or enabled FES setting."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "Both drafts state tree-shaking is the root cause without supporting artifacts and despite the accepted reproduction demonstrating active FES in the same bundle."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "Comment presents its own diagnosis, bounded bundler change and CI verification; no stated maintainer prerequisite or contribution-policy violation is established by the bundle."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-08",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "The plan's mixed-sign grouping explanation matches the two failing non-leaf cases and the passing leaf-level and same-sign controls."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "Normalize negative indices against the array length before grouping in delpaths_sorted, targeting the identified grouping split."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope is delpaths_sorted grouping and its regression tests; the larger tombstone rework is explicitly excluded."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan identifies src/jv_aux.c::delpaths_sorted and specifies normalization at each array level before grouping."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "The tests replay all three repro commands with simultaneous-deletion output, preserve both same-sign controls, and check the existing leaf-level regression."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "The diagnosis agrees with the supplied thread and reproduction; out-of-range negative indices are acknowledged with a leaf-behavior comparison and a pinning test."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment conveys normalization and regression tests, acknowledges #3543 and #3548, and offers to contribute tests to an existing patch; no conflicting contribution policy is supplied."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-09",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "Issue and repro show Windows separator-bearing globs fail while regex and Linux controls match; the diagnosis explains the skipped candidate normalization."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "The plan replaces backslashes with forward slashes in Windows full-path glob match candidates before applying the glob-derived regex."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope is Windows full-path glob matching plus fixture tests; direct globset matching and regex-mode changes are explicitly deferred."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan names src/walk.rs, candidate-byte normalization at the match site, Windows/glob/full-path gating, and tests/tests.rs."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "Windows fixture tests replay repro steps 2 and 3 plus a double-backslash form, require the fixture's native path, and preserve regex and Linux controls."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "The supported diagnosis is paired with planned verification; the Unix backslash risk is addressed by Windows gating, and no completed results are claimed."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment conveys diagnosis, bounded normalization and tests, acknowledges PR #2089 with a coordination path, and violates no established contribution prerequisite."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-10",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Change reaches the cause",
+        "One bounded change",
+        "Executable approach",
+        "Observable regression proof",
+        "Thread and repository respected"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "unclear",
+          "evidence": "Repro isolates git_status at 1873ms with disabling it reducing total time below 100ms; drafts identify the hotspot but provide no causal explanation or concretely testable mechanism."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "unclear",
+          "evidence": "Caching and fewer subprocesses are proposed possibilities without evidence or a concrete causal test connecting them to the reproduced slowdown."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "fail",
+          "evidence": "The plan spans git modules and promises to 'Optimize whatever the profiling turns up' and consider fewer subprocesses 'in general,' leaving no identifiable fix boundary."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "fail",
+          "evidence": "Steps to profile, investigate scoop, and 'Look into caching' are exploration alone and leave the change site and core mechanism undecided."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "unclear",
+          "evidence": "The test plan promises the prompt will 'feel fast' and timings will 'look much better' without a clear reproduction replay, observable success criterion, or preservation of controls."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "The drafts frame scoop, caching, and optimization as investigation and exploration without claiming a proven cause, completed fix, or completion date."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "unclear",
+          "evidence": "No thread prerequisites or AI restrictions are stated, but the comment supplies no bounded intervention or concrete verification to satisfy the communication requirement."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unbuildable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-11",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Change reaches the cause",
+        "Executable approach",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "fail",
+          "evidence": "Repro: top-level collect returns length 1 and only condition contexts fail; the plan asserts a collect defect without accounting for the DontAutoCreate boundary or proposing a causal verification step."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "unclear",
+          "evidence": "The approach promises null entries in collect but does not explain how it addresses the reported traverseMap suppression under DontAutoCreate."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope confines the change to operator_collect.go and its regression tests, excluding changes to condition consumers."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "unclear",
+          "evidence": "The collect change site is named, but the core operation implementing 'always contributes a null element' is unspecified."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "The test plan replays the issue's three commands and requires outputs 1, {}, and true, preserving the top-level control."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "The diagnosis says 'The collect operator is the defect' and the comment says 'Investigated this' without acknowledging or verifying the uncertain causal attribution."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment summarizes its own diagnosis, collect-only change, and three regression scenarios; the bundle states no conflicting maintainer prerequisite or AI policy."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-12",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "One bounded change",
+        "Observable regression proof",
+        "Claims and unknowns are honest",
+        "Thread and repository respected"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "unclear",
+          "evidence": "The repro establishes column-0 emission; the plan attributes it to accumulated printer special cases without supporting evidence or a concrete hypothesis-verification step."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "Tracking the enclosing block's continuation indent in inline-code wrapping directly addresses the reproduced loss of continuation indentation."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "fail",
+          "evidence": "The plan also unifies blockquote and footnote handling, changes proseWrap, adds markdownIndentAdjust, and restructures the printer without evidence these are necessary for this issue."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan names src/language-markdown/printer-markdown.js and specifies replacing inline-code wrapping with enclosing-block continuation-indent tracking."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "unclear",
+          "evidence": "The test plan references the issue repro and preserved indent, but omits verification of the accepted repro's byte-identical second pass and subsequent clean --check control."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "The comment asserts the broader rebuild 'fixes the class rather than the instance' without evidence establishing the class-wide cause or a verification path for that claim."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "fail",
+          "evidence": "The draft comment lists the expanded rebuild but conveys neither a bounded fix nor its verification, as this check requires."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-13",
+      "verdict": "accept",
+      "failed_checks": [],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "The viewport-anchor and invalidation explanation accounts for the repro's top jump and blanking cleared by resize; the unverified clamp location is acknowledged for confirmation."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "Re-anchoring the viewport and invalidating the visible region after buffer rotation directly address the two failures triggered by ESC[3J."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope is the erase-scrollback branch and its renderer invalidation, with supporting tests; mouse selection and general scrollback redesign are excluded."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan names AdaptDispatch::EraseInDisplay's scrollback branch and specifies bottom-relative re-anchoring, full-visible-region invalidation after rotation, and an adapter test."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "Replaying the script while scrolled up must produce a bottom snap and no blank regions without resize; an adapter test and conhost shared-path check supplement this."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "The plan explicitly says the clamp layer remains unverified, allows the fix site to move during confirmation, and identifies conhost as a shared-path regression risk."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment summarizes its own reproduction, bounded intervention, adapter test, and clamp uncertainty; it aligns with the maintainer's invalidation observation, with no conflicting stated repository policy."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-14",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "unclear",
+          "evidence": "Repro establishes reattach-only leakage and the cache control, but provides no query/input-ordering evidence; the asserted mechanism is not labelled a hypothesis."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "Pattern-bounded OSC response consumption before pane input forwarding directly targets the proposed input-routing cause, with query tracing and the repro loop providing a test path."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope is the Unix reattach handshake; theme-cache changes and the Windows session-switch variant are explicitly deferred."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "Plan names attach/reattach connection handling and terminal-query issuance, and specifies consuming OSC response patterns before pane input is wired."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "Five SSH reattach cycles must show no rgb strings; fresh creation remains clean and the cache-clear sequence becomes always clean."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "Plan asserts a wiring race, loading-screen query behavior, and a reattach-path change in 0.44.2 as facts, exceeding what the supplied reproduction establishes."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "Comment conveys its diagnosis, Unix handshake change and repro-loop verification, acknowledges Windows limitations, and violates no stated repository policy or maintainer direction."
+        }
+      ],
+      "error": null,
+      "gold": "accept",
+      "category": "clear-accept",
+      "calibration": false
+    },
+    {
+      "id": "pkg-15",
+      "verdict": "reject",
+      "failed_checks": [
+        "Change reaches the cause",
+        "One bounded change",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "Repro step 1 measures the bundled default at 250 ms; controls 4 and 5 flip success to ETIMEDOUT by changing the timeout, supporting the plan's diagnosis."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "fail",
+          "evidence": "Setting the startup default to 500 ms reaches the isolated cause, but the proposed settings and status UI changes alter unrelated behavior, and retries can hide connection aborts."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "fail",
+          "evidence": "Proposed changes 2\u20135 bundle an undici migration, timeout setting, separate silent-success UI fix, and retry wrapper with the default timeout correction."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan specifies setting autoSelectFamilyAttemptTimeout to 500 ms at app startup and identifies functional areas and operations for the additional changes."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "The test plan reuses the slow-connect setup and requires sync to succeed on all 10 runs, distinguishing the result from the reproduced ETIMEDOUT failures."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "unclear",
+          "evidence": "The bundle supplies no verification path for undici's claimed relevance, and the comment starts with the migration while the plan starts with the direct timeout fix."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment cites the isolation matrix and acknowledges mrjo118's 500 ms test build; the bundle states no conflicting contribution policy or maintainer prerequisite."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-16",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Change reaches the cause",
+        "Executable approach",
+        "Claims and unknowns are honest"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "fail",
+          "evidence": "Repro step 4 shows inferred int64 value 1 before any string cast, contradicting the drafts' claim that the post-read cast damages the data."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "fail",
+          "evidence": "The plan changes only post-read formatting and explicitly excludes reader options, although repro steps 3 and 4 locate the loss during inferred parsing."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Scope confines the intervention to the arrow wrapper's post-read cast and supporting tests, excluding reader options and python-engine changes."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "unclear",
+          "evidence": "The proposed width calculation depends on 'the pad the CSV used,' but supplies no source or operation for recovering that information from parsed integers."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "The test plan replays the issue's example and requires output matching the python engine, distinguishing preserved leading zeros from stripped values."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "Both drafts assert that damage happens in the post-read cast despite repro step 4, and the plan claims original widths are recoverable without evidence or a verification path."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment conveys its own diagnosis, bounded wrapper change, and example-based verification; the bundle states no AI policy or unmet maintainer prerequisite."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "wrong-cause",
+      "calibration": false
+    },
+    {
+      "id": "pkg-17",
+      "verdict": "reject",
+      "failed_checks": [
+        "Change reaches the cause",
+        "Executable approach",
+        "Observable regression proof"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "The plan suspects mouse handling changed between 0.61 and 0.62, consistent with the same-tmux version control and mouse-on/off isolation; the responsible layer remains explicitly unknown."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "unclear",
+          "evidence": "The plan proposes investigating and trying protocols but identifies no intervention whose effect on wrong-pane event routing can be assessed."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "The stated work concerns restoring scrolling under tmux, with no unrelated feature, rewrite, or cleanup included."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "fail",
+          "evidence": "The approach is exploration alone: 'gocui? tcell? not sure which layer is responsible' followed by 'Fix the scrolling once the cause is clear.'"
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "unclear",
+          "evidence": "The test plan only says scrolling should work under tmux and nothing else should feel broken; it specifies neither the reproduced trigger and expected panel behavior nor preservation of the controls."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "The plan openly leaves the input layer and cause unresolved, proposes investigating protocols and version changes, and claims no completed fix or deadline."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "pass",
+          "evidence": "The comment references the reproduced mouse-on isolation and summarizes the bounded investigation; the supplied policy permits selective outside PR review and states no AI disclosure requirement."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unbuildable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-18",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "Change reaches the cause",
+        "One bounded change",
+        "Executable approach",
+        "Observable regression proof",
+        "Claims and unknowns are honest",
+        "Thread and repository respected"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "unclear",
+          "evidence": "Repro steps 1\u20134 isolate iterator range plus in-loop defer; the drafts offer only investigating iter.Seq2 handling, without an explanation or concrete hypothesis verification."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "fail",
+          "evidence": "Step 1 converts an analyzer panic into an error through recovery; step 2 leaves the causal type-logic intervention undefined."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "fail",
+          "evidence": "The plan bundles runner-level recovery, unspecified changes to two linters, and a possible scan of other linters."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "fail",
+          "evidence": "The proposed operations are 'somewhere around linter execution' and 'look into' type handling, with upstream versus vendored implementation undecided."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "fail",
+          "evidence": "The test promises only no panic, which recovery alone could satisfy, and omits expected normal findings and the defer-placement and slice-range controls."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "unclear",
+          "evidence": "The unresolved type mechanism and implementation route are acknowledged, but no concrete verification or decision path is supplied."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "fail",
+          "evidence": "The comment proposes upstream or vendored fixes without accounting for the maintainer's existing sqlclosecheck#50 and rowserrcheck#34 PRs or the stated rowserrcheck fork."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "unbuildable",
+      "calibration": false
+    },
+    {
+      "id": "pkg-19",
+      "verdict": "reject",
+      "failed_checks": [
+        "Diagnosis follows reproduction",
+        "One bounded change",
+        "Claims and unknowns are honest",
+        "Thread and repository respected"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "unclear",
+          "evidence": "Repro isolates custom appear-to cleanup versus defaults; the lifecycle-ownership explanation has no concrete mechanism-verification step."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "Proposed change 2 routes custom appear classes through the same removal path as defaults, directly addressing the reproduced cleanup boundary."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "fail",
+          "evidence": "The package adds persistClass, ports TransitionGroup, replaces the lifecycle architecture, and migrates the test harness beyond the custom appear-to cleanup fix."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "The plan names TransitionState.ts, assigns it all transition class add/remove operations, and identifies enter, leave, appear, and TransitionGroup integration."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "The test plan explicitly references the accepted repro and requires custom appear-to removal at transition end, with full class-timeline assertions per phase."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "fail",
+          "evidence": "The plan and comment promise the class of leak becomes unrepresentable, although the supplied evidence establishes neither the architectural cause nor that guarantee."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "unclear",
+          "evidence": "The comment reports its reproduction and proposed rewrite but does not convey a bounded issue fix or planned regression verification; no stated repository policy prohibits the contribution."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "scope-creep",
+      "calibration": false
+    },
+    {
+      "id": "pkg-20",
+      "verdict": "reject",
+      "failed_checks": [
+        "Thread and repository respected"
+      ],
+      "checks": [
+        {
+          "name": "Diagnosis follows reproduction",
+          "grade": "pass",
+          "evidence": "Repro: both growth-triggering cases panic in appendGrapheme; removing the hyperlink passes, supporting the plan's stale-prev diagnosis."
+        },
+        {
+          "name": "Change reaches the cause",
+          "grade": "pass",
+          "evidence": "Plan: detect page capacity changes and recompute prev from the pin before dereferencing the invalidated pointer."
+        },
+        {
+          "name": "One bounded change",
+          "grade": "pass",
+          "evidence": "Plan confines work to page change detection, Terminal.print grapheme paths including .wide, and supporting regression tests."
+        },
+        {
+          "name": "Executable approach",
+          "grade": "pass",
+          "evidence": "Plan specifies a page generation counter incremented on capacity changes, a snapshot beside prev, and comparison followed by recomputation from the pin."
+        },
+        {
+          "name": "Observable regression proof",
+          "grade": "pass",
+          "evidence": "Test plan requires both issue fuzz cases to pass under zig build test and the passing no-hyperlink control to remain unchanged."
+        },
+        {
+          "name": "Claims and unknowns are honest",
+          "grade": "pass",
+          "evidence": "Plan explicitly says comparison cost is unmeasured and identifies the print benchmark and growth-adjacent checks as its decision path."
+        },
+        {
+          "name": "Thread and repository respected",
+          "grade": "fail",
+          "evidence": "Repo facts require disclosure of all AI use, naming tool and extent; the draft comment supplies no AI disclosure, and required human review remains unestablished."
+        }
+      ],
+      "error": null,
+      "gold": "reject",
+      "category": "thread-convention",
+      "calibration": false
+    }
+  ]
+}

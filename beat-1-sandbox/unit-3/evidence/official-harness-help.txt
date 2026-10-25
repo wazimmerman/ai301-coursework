@@ -1,0 +1,32 @@
+usage: run_eval.py [-h] --rubric RUBRIC --evidence EVIDENCE
+                   [--procedure PROCEDURE] [--skill SKILL]
+                   [--packages PACKAGES] [--gold GOLD] [--include-calibration]
+                   [--only ID[,ID...]] [--limit LIMIT] [--workers WORKERS]
+                   [--timeout TIMEOUT] [--save-run FILE] [--out OUT]
+
+Grade the eval set with a rubric, evidence guide, and procedure, and score
+agreement.
+
+options:
+  -h, --help            show this help message and exit
+  --rubric RUBRIC       path to the rubric file to grade with
+  --evidence EVIDENCE   path to the evidence guide to grade with
+  --procedure PROCEDURE
+                        path to the grading procedure; defaults to
+                        procedure.md (or master-procedure.md) next to the
+                        rubric
+  --skill SKILL         path to SKILL.md (default: the week's skill)
+  --packages PACKAGES
+  --gold GOLD
+  --include-calibration
+                        also grade the 4 worksheet calibration packages (never
+                        scored)
+  --only ID[,ID...]     grade only these package ids, comma-separated (e.g.
+                        --only pkg-07,pkg-12); cheap re-runs while revising a
+                        rubric
+  --limit LIMIT         grade only the first N items (smoke runs)
+  --workers WORKERS
+  --timeout TIMEOUT     seconds per package per attempt
+  --save-run FILE       write this run's output to FILE (the run you commit);
+                        refused on partial runs
+  --out OUT             also write full results as JSON to this path
